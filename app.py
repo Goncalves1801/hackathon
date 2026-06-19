@@ -1,0 +1,54 @@
+import tkinter as tk
+from tkinter import messagebox
+from banco import cadastrar_produto 
+
+janela = tk.Tk()
+janela.title("SAEP Estoque Fácil")
+janela.geometry("500x400")
+
+titulo = tk.Label(
+    janela,
+    text="SAEP Estoque Fácil",
+    font=("Arial", 18, "bold")
+)
+titulo.pack()
+
+tk.Label(janela, text="Nome do Produto:").pack()
+entrada_nome = tk.Entry(janela, width=40)
+entrada_nome.pack()
+
+tk.Label(janela, text="Categoria:").pack()
+entrada_categoria = tk.Entry(janela, width=40)
+entrada_categoria.pack()
+
+tk.Label(janela, text="Quantidade:").pack()
+entrada_quantidade = tk.Entry(janela, width=40)
+entrada_quantidade.pack()
+
+tk.Label(janela, text="Preço:").pack()
+entrada_preco = tk.Entry(janela, width=40)
+entrada_preco.pack()
+
+def salvar():
+    nome = entrada_nome.get()
+    categoria = entrada_categoria.get()
+    quantidade = entrada_quantidade.get()
+    preco = entrada_preco.get()
+
+    if nome == "" or categoria == "" or quantidade == "" or preco == "":
+       messagebox.showwarning("Atenção", "Preencha todos os campos.")
+       return
+    
+    cadastrar_produto(nome, categoria, 
+    int(quantidade), float(preco))
+    
+    messagebox.showinfo("Sucesso", "Produto cadastrado com sucesso!")
+
+    entrada_nome.delete(0, tk.END)
+    entrada_categoria.delete(0, tk.END)
+    entrada_quantidade.delete(0, tk.END)
+    entrada_preco.delete(0, tk.END)
+
+botão_salvar = tk.Button(janela, text="Cadastrar Produto", command=salvar, width=25)
+botão_salvar.pack(pady=20)
+janela.mainloop()
